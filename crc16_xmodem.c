@@ -31,10 +31,10 @@ static unsigned int crc_table[256] = {
 };
 
 unsigned crc16_xmodem_add(unsigned crc, const char* byte){
-    unsigned r = 0xff & (unsigned)*byte;
-    r = crc ^ r;
-    crc = (crc >> 8) ^ crc_table[r & 0xff];
-    return crc;
+    unsigned a = ((crc >> 8) ^ (unsigned)*byte);
+    a = crc_table[a & 0xff];
+    a = a ^ (crc << 8);
+    return a & 0xffff;
 }
 
 unsigned crc16_xmodem_compute(const char* data, size_t len){
