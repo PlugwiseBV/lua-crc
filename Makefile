@@ -1,7 +1,7 @@
 SYSINCDIRS := /usr/include/lua5.1
 INCLUDE := $(addprefix -isystem ,$(SYSINCDIRS))
 
-CFLAGS := -std=c99 -Wall -Wextra -fPIC -flto $(INCLUDE)
+CFLAGS := -std=c99 -Wall -Wextra -Werror -fPIC -flto $(INCLUDE)
 LDFLAGS :=
 
 CFILES := $(wildcard *.c)
