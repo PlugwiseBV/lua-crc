@@ -7,6 +7,7 @@
 #include <lualib.h>
 #include <lauxlib.h>
 #include "crc16_arc.h"
+#include "crc16_xmodem.h"
 
 #define METATABLENAME "crc16_def_metatable"
 
@@ -17,10 +18,12 @@ struct crc16_functions {
 
 enum crcType{
     ARC,
+    XMODEM,
 };
 
 const char *const crc_types[] = {
     "ARC",
+    "XMODEM",
     NULL
 };
 
@@ -33,6 +36,10 @@ static int crc_new(lua_State *L)
         case ARC:
             funcs->add = crc16_arc_add;
             funcs->compute = crc16_arc_compute;
+            break;
+        case XMODEM:
+            funcs->add = crc16_xmodem_add;
+            funcs->compute = crc16_xmodem_compute;
             break;
     }
     luaL_getmetatable(L, METATABLENAME);
