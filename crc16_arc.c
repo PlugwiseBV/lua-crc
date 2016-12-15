@@ -31,18 +31,19 @@ static unsigned int crc_table[256] = {
     0x4400, 0x84c1, 0x8581, 0x4540, 0x8701, 0x47c0, 0x4680, 0x8641, 0x8201, 0x42c0, 0x4380, 0x8341, 0x4100, 0x81c1, 0x8081, 0x4040
 };
 
-unsigned short crc16_arc_add(unsigned short crc, unsigned short byte){
-    unsigned short r = 0xff & byte;
+unsigned crc16_arc_add(unsigned crc, unsigned byte){
+    unsigned r = 0xff & byte;
     r = crc ^ r;
     crc = (crc >> 8) ^ crc_table[r & 0xff];
     return crc;
 }
 
-unsigned short crc16_arc_compute(const char* data, size_t len){
+unsigned crc16_arc_compute(const char* data, size_t len){
     unsigned crc = 0;
     for ( ; len > 0; len--)
     {
-        crc = crc16_arc_add(crc, (unsigned short)*data);
+        crc = crc16_arc_add(crc, (unsigned)*data);
+        data++;
     }
     return crc;
 }

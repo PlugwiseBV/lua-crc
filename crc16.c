@@ -11,8 +11,8 @@
 #define METATABLENAME "crc16_def_metatable"
 
 struct crc16_functions {
-    unsigned short (*add)(unsigned short, unsigned short);
-    unsigned short (*compute)(const char* data, size_t len);
+    unsigned (*add)(unsigned, unsigned);
+    unsigned (*compute)(const char* data, size_t len);
 };
 
 enum crcType{
