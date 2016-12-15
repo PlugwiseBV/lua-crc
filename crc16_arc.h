@@ -4,7 +4,7 @@
  * @param byte The byte you want to add to the existing crc
  * @return The new CRC value
  */
-unsigned crc16_arc_add(unsigned crc, unsigned byte);
+unsigned crc16_arc_add(unsigned crc, const char* byte);
 
 /**
  * @brief Calculates the ARC CRC 16 of a given string
