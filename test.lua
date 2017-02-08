@@ -40,8 +40,10 @@ for k,v in pairs(XMODEMtesttable) do
     end
     assert(sum == v, string.format("XMODEM CRC16 add function failed on string %s. Expected: %X, got: %X\n", k, v, sum))
 end
+io.write("CRC16 XMODEM test succesfull\n")
 crc, err = pcall(crc16.new, "ABC")
 if crc then
     assert(false, "CRC lib should have crashed on incorrect CRC 16 name, but it did not\n")
+else
+    io.write("Falsification test succesfull\n")
 end
-io.write("CRC16 XMODEM test succesfull\n")
