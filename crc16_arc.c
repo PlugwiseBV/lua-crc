@@ -8,12 +8,9 @@
  * width=16  poly=0x8005  init=0x0000  refin=true  refout=true  xorout=0x0000  check=0xbb3d  name="ARC"
  */
 
-#include <stdlib.h> //For size_t
-#include <stdio.h>
-
 #include "crc16_arc.h"
 
-static unsigned int crc_table[256] = {
+static uint16_t crc_table[256] = {
     0x0, 0xc0c1, 0xc181, 0x140, 0xc301, 0x3c0, 0x280, 0xc241, 0xc601, 0x6c0, 0x780, 0xc741, 0x500, 0xc5c1, 0xc481, 0x440,
     0xcc01, 0xcc0, 0xd80, 0xcd41, 0xf00, 0xcfc1, 0xce81, 0xe40, 0xa00, 0xcac1, 0xcb81, 0xb40, 0xc901, 0x9c0, 0x880, 0xc841,
     0xd801, 0x18c0, 0x1980, 0xd941, 0x1b00, 0xdbc1, 0xda81, 0x1a40, 0x1e00, 0xdec1, 0xdf81, 0x1f40, 0xdd01, 0x1dc0, 0x1c80, 0xdc41,
@@ -32,15 +29,15 @@ static unsigned int crc_table[256] = {
     0x4400, 0x84c1, 0x8581, 0x4540, 0x8701, 0x47c0, 0x4680, 0x8641, 0x8201, 0x42c0, 0x4380, 0x8341, 0x4100, 0x81c1, 0x8081, 0x4040
 };
 
-unsigned crc16_arc_add(unsigned crc, const char* byte){
-    unsigned r = 0xff & (unsigned)*byte;
+uint16_t crc16_arc_add(uint16_t crc, const char* byte){
+    uint16_t r = 0xff & (uint16_t)*byte;
     r = crc ^ r;
     crc = (crc >> 8) ^ crc_table[r & 0xff];
     return crc;
 }
 
-unsigned crc16_arc_compute(const char* data, size_t len){
-    unsigned crc = 0;
+uint16_t crc16_arc_compute(const char* data, size_t len){
+    uint16_t crc = 0;
     for ( ; len > 0; len--)
     {
         crc = crc16_arc_add(crc, data);
@@ -48,4 +45,3 @@ unsigned crc16_arc_compute(const char* data, size_t len){
     }
     return crc;
 }
-

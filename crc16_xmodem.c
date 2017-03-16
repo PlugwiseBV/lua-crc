@@ -7,11 +7,10 @@
  * Classification by reveng
  * width=16  poly=0x1021  init=0x0000  refin=false  refout=false  xorout=0x0000  check=0x31c3  name="XMODEM"
  */
-#include <stdlib.h> //For size_t
 
 #include "crc16_xmodem.h"
 
-static unsigned int crc_table[256] = {
+static uint16_t crc_table[256] = {
     0x0000, 0x1021, 0x2042, 0x3063, 0x4084, 0x50A5, 0x60C6, 0x70E7, 0x8108, 0x9129, 0xA14A, 0xB16B, 0xC18C, 0xD1AD, 0xE1CE, 0xF1EF,
     0x1231, 0x0210, 0x3273, 0x2252, 0x52B5, 0x4294, 0x72F7, 0x62D6, 0x9339, 0x8318, 0xB37B, 0xA35A, 0xD3BD, 0xC39C, 0xF3FF, 0xE3DE,
     0x2462, 0x3443, 0x0420, 0x1401, 0x64E6, 0x74C7, 0x44A4, 0x5485, 0xA56A, 0xB54B, 0x8528, 0x9509, 0xE5EE, 0xF5CF, 0xC5AC, 0xD58D,
@@ -30,15 +29,15 @@ static unsigned int crc_table[256] = {
     0xEF1F, 0xFF3E, 0xCF5D, 0xDF7C, 0xAF9B, 0xBFBA, 0x8FD9, 0x9FF8, 0x6E17, 0x7E36, 0x4E55, 0x5E74, 0x2E93, 0x3EB2, 0x0ED1, 0x1EF0
 };
 
-unsigned crc16_xmodem_add(unsigned crc, const char* byte){
-    unsigned a = ((crc >> 8) ^ (unsigned)*byte);
+uint16_t crc16_xmodem_add(uint16_t crc, const char* byte){
+    uint16_t a = ((crc >> 8) ^ (uint16_t)*byte);
     a = crc_table[a & 0xff];
     a = a ^ (crc << 8);
     return a & 0xffff;
 }
 
-unsigned crc16_xmodem_compute(const char* data, size_t len){
-    unsigned crc = 0;
+uint16_t crc16_xmodem_compute(const char* data, size_t len){
+    uint16_t crc = 0;
     for ( ; len > 0; len--)
     {
         crc = crc16_xmodem_add(crc, data);
