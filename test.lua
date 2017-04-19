@@ -20,6 +20,10 @@ for k,v in pairs(ARCTestTable) do
     -- Compute test
     n = crc:compute(k)
     assert(n == v, string.format("ARC CRC16 compute function failed on string %s. Expected: %X, got: %X\n", k, v, n))
+    local l = #k
+    local lengthened = k.."...."
+    n = crc:compute(lengthened, l)
+    assert(n == v, string.format("ARC CRC16 compute function failed on string %s. Expected: %X, got: %X\n", k, v, n))
     -- Add test
     sum = 0
     for c in k:gmatch"." do
@@ -32,6 +36,10 @@ crc = crc16.new("XMODEM")
 for k,v in pairs(XMODEMtesttable) do
     -- Compute test
     n = crc:compute(k)
+    assert(n == v, string.format("XMODEM CRC16 compute function failed on string %s. Expected: %X, got: %X\n", k, v, n))
+    local l = #k
+    local lengthened = k.."...."
+    n = crc:compute(lengthened, l)
     assert(n == v, string.format("XMODEM CRC16 compute function failed on string %s. Expected: %X, got: %X\n", k, v, n))
     -- Add test
     sum = 0

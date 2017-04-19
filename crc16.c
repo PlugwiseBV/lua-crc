@@ -53,6 +53,11 @@ static int compute(lua_State *L)
     const char *data;
     size_t len;
     data = luaL_checklstring(L, 2, &len);
+    if (lua_isnumber(L, 3)) {
+        int l = lua_tointeger(L, 3);
+        if (l > 0 && l < (int) len)
+            len = (size_t) l;
+    }
     unsigned crc = funcs->compute(data, len);
     lua_pushinteger(L, crc);
     return 1;
