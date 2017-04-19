@@ -12,8 +12,8 @@
 #define METATABLENAME "crc16_def_metatable"
 
 struct crc16_functions {
-    unsigned (*add)(unsigned, const char*);
-    unsigned (*compute)(const char* data, size_t len);
+    uint16_t (*add)(uint16_t, const char*);
+    uint16_t (*compute)(const char* data, size_t len);
 };
 
 enum crcType{
@@ -58,7 +58,7 @@ static int compute(lua_State *L)
         if (l > 0 && l < (int) len)
             len = (size_t) l;
     }
-    unsigned crc = funcs->compute(data, len);
+    uint16_t crc = funcs->compute(data, len);
     lua_pushinteger(L, crc);
     return 1;
 }
@@ -66,7 +66,7 @@ static int compute(lua_State *L)
 static int add(lua_State *L){
     struct crc16_functions* funcs = (struct crc16_functions*)lua_touserdata(L, 1);
     const char* byte;
-    unsigned crc = (unsigned short)lua_tonumber(L, 2);
+    uint16_t crc = (uint16_t)lua_tonumber(L, 2);
     byte = luaL_checklstring(L, 3, NULL);
     crc = funcs->add(crc, byte);
     lua_pushinteger(L, crc);
