@@ -1,8 +1,3 @@
-// CRC algorithm: arc
-// width=16  poly=0x8005  init=0x0000  refin=true  refout=true  xorout=0x0000  check=0xbb3d  name="ARC"
-// CRC algorithm: xmodem
-// width=16  poly=0x1021  init=0x0000  refin=false  refout=false  xorout=0x0000  check=0x31c3  name="XMODEM"
-
 #include <lua.h>
 #include <lualib.h>
 #include <lauxlib.h>
