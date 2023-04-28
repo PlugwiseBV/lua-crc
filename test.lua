@@ -34,6 +34,12 @@ local cases = {
     },
 }
 
+local init = {
+    ARC     = 0,
+    XMODEM  = 0,
+    CCITT   = 0xFFFF,
+}
+
 for name, samples in pairs(cases) do
     local crc = crc16.new(name)
     for k,v in pairs(samples) do
@@ -45,7 +51,7 @@ for name, samples in pairs(cases) do
         n = crc:compute(lengthened, l)
         assert(n == v, sFmt("%s CRC16 compute function failed on string %s. Expected: %X, got: %X", name, k, v, n))
         -- Add test
-        sum = 0
+        sum = init[name]
         for c in k:gmatch"." do
             sum = crc:add(sum, c)
         end
