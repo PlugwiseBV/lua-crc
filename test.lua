@@ -25,6 +25,13 @@ local cases = {
         ["QoCTLeRKKm"]  = 0xBE06,
         ["3VrgJLJEGD"]  = 0xC52F,
     },
+    CCITT = {
+        ["AA"]          = 0x7B17,
+        ["1AFXJbsJNW"]  = 0x2E65,
+        ["ILAiD5XOlJ"]  = 0x5094,
+        ["QoCTLeRKKm"]  = 0x5F3F,
+        ["3VrgJLJEGD"]  = 0x2416,
+    },
 }
 
 for name, samples in pairs(cases) do
