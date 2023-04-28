@@ -34,12 +34,12 @@ static int crc_new(lua_State *L)
     struct crc16_functions* funcs = lua_newuserdata(L, sizeof(struct crc16_functions));
     switch(tp){
         case ARC:
-            funcs->add = crc16_arc_add;
-            funcs->compute = crc16_arc_compute;
+            funcs->add      = crc16_arc_add;
+            funcs->compute  = crc16_arc_compute;
             break;
         case XMODEM:
-            funcs->add = crc16_xmodem_add;
-            funcs->compute = crc16_xmodem_compute;
+            funcs->add      = crc16_xmodem_add;
+            funcs->compute  = crc16_xmodem_compute;
             break;
     }
     luaL_getmetatable(L, METATABLENAME);
@@ -49,24 +49,25 @@ static int crc_new(lua_State *L)
 
 static int compute(lua_State *L)
 {
-    struct crc16_functions* funcs = (struct crc16_functions*)lua_touserdata(L, 1);
+    struct crc16_functions* funcs = (struct crc16_functions *)lua_touserdata(L, 1);
     const char *data;
     size_t len;
     data = luaL_checklstring(L, 2, &len);
     if (lua_isnumber(L, 3)) {
         int l = lua_tointeger(L, 3);
-        if (l > 0 && l < (int) len)
-            len = (size_t) l;
+        if (l > 0 && l < (int )len)
+            len = (size_t )l;
     }
     uint16_t crc = funcs->compute(data, len);
     lua_pushinteger(L, crc);
     return 1;
 }
 
-static int add(lua_State *L){
-    struct crc16_functions* funcs = (struct crc16_functions*)lua_touserdata(L, 1);
+static int add(lua_State *L)
+{
+    struct crc16_functions* funcs = (struct crc16_functions *)lua_touserdata(L, 1);
     const char* byte;
-    uint16_t crc = (uint16_t)lua_tonumber(L, 2);
+    uint16_t crc = (uint16_t )lua_tonumber(L, 2);
     byte = luaL_checklstring(L, 3, NULL);
     crc = funcs->add(crc, byte);
     lua_pushinteger(L, crc);

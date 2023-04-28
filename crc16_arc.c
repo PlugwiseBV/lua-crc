@@ -29,14 +29,16 @@ static uint16_t crc_table[256] = {
     0x4400, 0x84c1, 0x8581, 0x4540, 0x8701, 0x47c0, 0x4680, 0x8641, 0x8201, 0x42c0, 0x4380, 0x8341, 0x4100, 0x81c1, 0x8081, 0x4040
 };
 
-uint16_t crc16_arc_add(uint16_t crc, const char* byte){
+uint16_t crc16_arc_add(uint16_t crc, const char* byte)
+{
     uint16_t r = 0xff & (uint16_t)*byte;
     r = crc ^ r;
     crc = (crc >> 8) ^ crc_table[r & 0xff];
     return crc;
 }
 
-uint16_t crc16_arc_compute(const char* data, size_t len){
+uint16_t crc16_arc_compute(const char* data, size_t len)
+{
     uint16_t crc = 0;
     for ( ; len > 0; len--)
     {

@@ -13,7 +13,7 @@
 uint16_t crc16_xmodem_add(uint16_t crc, const char* byte);
 
 /**
- * @brief Calculates the ARC CRC 16 of a given string
+ * @brief Calculates the XMODEM CRC 16 of a given string
  * @param Data the string you want to turn into
  * @param Len the length of the data
  */

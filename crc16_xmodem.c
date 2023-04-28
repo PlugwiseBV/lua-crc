@@ -29,14 +29,16 @@ static uint16_t crc_table[256] = {
     0xEF1F, 0xFF3E, 0xCF5D, 0xDF7C, 0xAF9B, 0xBFBA, 0x8FD9, 0x9FF8, 0x6E17, 0x7E36, 0x4E55, 0x5E74, 0x2E93, 0x3EB2, 0x0ED1, 0x1EF0
 };
 
-uint16_t crc16_xmodem_add(uint16_t crc, const char* byte){
+uint16_t crc16_xmodem_add(uint16_t crc, const char* byte)
+{
     uint16_t a = ((crc >> 8) ^ (uint16_t)*byte);
     a = crc_table[a & 0xff];
     a = a ^ (crc << 8);
     return a & 0xffff;
 }
 
-uint16_t crc16_xmodem_compute(const char* data, size_t len){
+uint16_t crc16_xmodem_compute(const char* data, size_t len)
+{
     uint16_t crc = 0;
     for ( ; len > 0; len--)
     {
